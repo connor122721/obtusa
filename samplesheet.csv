@@ -1,0 +1,10 @@
+sample,fasta
+carinata,obtusa_hifi/ncbi/cds/carinata.genomic.fna
+galeata,obtusa_hifi/ncbi/cds/galeata.genomic.fna
+magna,obtusa_hifi/ncbi/cds/magna.genomic.fna
+obtusaFS6,obtusa_hifi/ncbi/cds/obtusaFS6.genomic.fna
+pulexeuro,obtusa_hifi/ncbi/cds/pulexeuro.genomic.fna
+pulexnam,obtusa_hifi/ncbi/cds/pulexnam.genomic.fna
+pulicaria,obtusa_hifi/ncbi/cds/pulicaria.genomic.fna
+sinensis,obtusa_hifi/ncbi/cds/sinensis.genomic.fna
+obtusa,obtusa_hifi/genome/obtusa_hifi/obtusa.contigs.fasta
