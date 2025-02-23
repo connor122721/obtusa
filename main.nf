@@ -33,12 +33,44 @@ process run_hicanu {
     """
 }
 
+// Modify longstitch to test different kmer and window sizes
+include { run_longstitch as longstitch1 } from './modules/longstitch.nf'
+include { run_longstitch as longstitch2 } from './modules/longstitch.nf'
+include { run_longstitch as longstitch3 } from './modules/longstitch.nf'
+
+include { run_longstitch as longstitch4 } from './modules/longstitch.nf'
+include { run_longstitch as longstitch5 } from './modules/longstitch.nf'
+include { run_longstitch as longstitch6 } from './modules/longstitch.nf'
+
+include { run_longstitch as longstitch7 } from './modules/longstitch.nf'
+include { run_longstitch as longstitch8 } from './modules/longstitch.nf'
+include { run_longstitch as longstitch9 } from './modules/longstitch.nf'
+
 // Define workflow
 workflow {
     
     Channel.fromPath(params.fastq)
-        .set { fastq_channel }
+        .set { fastq_ch }
 
     // Run de novo assembly!
-    run_hicanu(fastq_channel)
+    //def canu = run_hicanu(fastq_ch)
+
+    Channel.fromPath("obtusa_hifi/genome/obtusa_hifi/obtusa.contigs.fasta")
+        .set { draft_ch }
+
+    // Run scaffolder! Testing for optimal kmer + window sizes
+    longstitch1(draft_ch, fastq_ch, "k_ntLink=24 w=100")
+    longstitch2(draft_ch, fastq_ch, "k_ntLink=32 w=100")
+    longstitch3(draft_ch, fastq_ch, "k_ntLink=40 w=100")
+
+    // Window 250 bps
+    longstitch4(draft_ch, fastq_ch, "k_ntLink=24 w=250")
+    longstitch5(draft_ch, fastq_ch, "k_ntLink=32 w=250")
+    longstitch6(draft_ch, fastq_ch, "k_ntLink=40 w=250")
+
+    // Window 500 bps
+    longstitch7(draft_ch, fastq_ch, "k_ntLink=24 w=500")
+    longstitch8(draft_ch, fastq_ch, "k_ntLink=32 w=500")
+    longstitch9(draft_ch, fastq_ch, "k_ntLink=40 w=500")
+
 }

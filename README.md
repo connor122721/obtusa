@@ -13,8 +13,8 @@
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/connor122721/obtusa_assembly
-    cd obtusa_assembly
+    git clone https://github.com/connor122721/obtusa
+    cd obtusa
     ```
 
 ## Running the Pipeline
@@ -67,7 +67,19 @@ nextflow run nf-core/pairgenomealign \
     -profile slurm,apptainer \
     --input samplesheet.csv \
     --target obtusa_hifi/genome/obtusa_hifi/obtusa.contigs.fasta \
-    --outdir obtusa_hifi/
+    --outdir obtusa_hifi/ \
+    -c nextflow.config
+```
+
+After running the scaffolding software, longstitch, test the alignment again: 
+
+```bash
+nextflow run nf-core/pairgenomealign \
+    -r 1.0.0 \
+    -profile slurm,apptainer \
+    --input samplesheet.csv \
+    --target obtusa_hifi/longstitch/obtusa_draft.k32.w100.tigmint-ntLink.longstitch-scaffolds.fa \
+    --outdir obtusa_hifi_scaffold/ \
     -c nextflow.config
 ```
 

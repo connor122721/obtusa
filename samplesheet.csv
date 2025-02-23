@@ -8,3 +8,4 @@ pulexnam,obtusa_hifi/ncbi/cds/pulexnam.genomic.fna
 pulicaria,obtusa_hifi/ncbi/cds/pulicaria.genomic.fna
 sinensis,obtusa_hifi/ncbi/cds/sinensis.genomic.fna
 obtusa,obtusa_hifi/genome/obtusa_hifi/obtusa.contigs.fasta
+obtusaScaff,obtusa_hifi/longstitch/obtusa_draft.k32.w100.tigmint-ntLink.longstitch-scaffolds.fa

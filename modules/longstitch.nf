@@ -8,35 +8,34 @@ process run_longstitch {
     input:
         path draft
         path reads
+        val input_settings
 
     output:
-        path "*", emit: longstitch_dir
+        path "longstitch*/*", emit: longstitch_dir
 
     script:
     """
-    module load apptainer
+    module load miniforge/24.3.0-py3.11
+    conda activate hicanu
 
     cp ${draft} obtusa_draft.fa
+    cp ${reads} obtusa_reads.fq.gz
 
-    apptainer run ${params.sifs_dir}/longstitch_latest.sif \\
-        longstitch run \\
-        draft=obtusa_draft.fa \\
-        reads=${reads} \\
+    longstitch \\
+        tigmint-ntLink-arks \\
+        draft=obtusa_draft \\
+        reads=obtusa_reads \\
         t=${params.threads} \\
-        G=${params.genomeSize} \\
-        longmap=hifi
+        G=180000000 \\
+        longmap=hifi \\
+        ${input_settings}
+
+    # Move all output
+    kset=\$(echo ${input_settings} | sed 's/=/ /g')
+    k=\$(echo \${kset} | cut -f2 -d " ")
+    w=\$(echo \${kset} | cut -f4 -d " ")
+    echo \${k} \${w}
+    mkdir longstitch_k\${k}_w\${w}/
+    mv * longstitch_k\${k}_w\${w}/
     """
-}
-
-// Define workflow
-workflow {
-    
-    Channel.fromPath(params.fastq)
-        .set { fastq_ch }
-
-    Channel.fromPath("obtusa_hifi/genome/obtusa_hifi/obtusa.contigs.fasta")
-        .set { draft_ch }
-
-    // Run de novo assembly!
-    run_longstitch(draft_ch, fastq_ch)
 }
