@@ -11,7 +11,7 @@ process run_longstitch {
         val input_settings
 
     output:
-        path "longstitch*/*", emit: longstitch_dir
+        path "*longstitch-scaffolds.fa", emit: longstitch_dir
 
     script:
     """
@@ -35,7 +35,5 @@ process run_longstitch {
     k=\$(echo \${kset} | cut -f2 -d " ")
     w=\$(echo \${kset} | cut -f4 -d " ")
     echo \${k} \${w}
-    mkdir longstitch_k\${k}_w\${w}/
-    mv * longstitch_k\${k}_w\${w}/
     """
 }

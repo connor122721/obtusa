@@ -9,7 +9,7 @@ process map_reads {
         path genome
 
     output:
-        path "*.bam", emit: bam
+        path "*.bam*", emit: bam
 
     script:
     """

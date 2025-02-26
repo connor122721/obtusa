@@ -46,6 +46,8 @@ include { run_longstitch as longstitch7 } from './modules/longstitch.nf'
 include { run_longstitch as longstitch8 } from './modules/longstitch.nf'
 include { run_longstitch as longstitch9 } from './modules/longstitch.nf'
 
+include { run_hifiasm } from './modules/hifiasm.nf'
+
 // Define workflow
 workflow {
     
@@ -54,6 +56,7 @@ workflow {
 
     // Run de novo assembly!
     //def canu = run_hicanu(fastq_ch)
+    //def asm = run_hifiasm(fastq_ch)
 
     Channel.fromPath("obtusa_hifi/genome/obtusa_hifi/obtusa.contigs.fasta")
         .set { draft_ch }
